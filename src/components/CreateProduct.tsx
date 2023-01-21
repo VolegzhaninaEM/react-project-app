@@ -16,14 +16,14 @@ const productData: IProduct = {
 }
 
 interface CreateProductProps {
-    onCreate: () => void
+    onCreate: (product: IProduct) => void
 }
 
 export function CreateProduct({ onCreate }: CreateProductProps) {
     const [value, setValue] = useState('');
     const [error, setError] = useState('')
 
-    const submitHandler = (event: React.FormEvent) => {
+    const submitHandler = async (event: React.FormEvent) => {
         event.preventDefault();
         setError('');
 
@@ -33,12 +33,12 @@ export function CreateProduct({ onCreate }: CreateProductProps) {
         }
 
         productData.title = value;
-        const response = axios.post<IProduct>('https://fakestoreapi.com/products', productData);
+        const response = await axios.post<IProduct>('https://fakestoreapi.com/products', productData);
 
-        onCreate();
+        onCreate(response.data);
     }
 
-    const changeCaptureHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const changeCaptureHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.currentTarget.value);
     }
 
@@ -48,7 +48,7 @@ export function CreateProduct({ onCreate }: CreateProductProps) {
                    className="border py-2 px-4 mb-2 w-full outline-0"
                    placeholder="Enter product title..."
                    value={value}
-                   onChangeCapture={changeCaptureHandler}/>
+                   onChange={changeCaptureHandler}/>
 
             {error && <ErrorMessage error={error} />}
 
