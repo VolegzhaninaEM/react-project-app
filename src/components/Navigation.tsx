@@ -8,7 +8,9 @@ export function Navigation() {
 
             <span>
                 <Link className="mr-2" to="/">Products</Link>
-                <Link to="/about">About</Link>
+                <Link className="mr-2" to="/about">About</Link>
+                <Link className="mr-2" to="/counter">Counter</Link>
+                <Link to="/redux_counter">Redux counter</Link>
             </span>
         </nav>
     );
