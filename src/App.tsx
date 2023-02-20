@@ -3,8 +3,8 @@ import {Route, Routes} from 'react-router-dom'
 import ProductsPage from "./pages/ProductsPage";
 import AboutPage from "./pages/AboutPage";
 import Navigation from "./components/Navigation";
+import BaseCounterPage from "./pages/BaseCounterPage";
 import ReduxCounterPage from "./pages/ReduxCounterPage";
-import CreateStore from "./components/CreateStore";
 
 function App() {
     return (
@@ -13,8 +13,8 @@ function App() {
             <Routes>
                 <Route path="/" element={<ProductsPage/>}/>
                 <Route path="/about" element={<AboutPage/>}/>
-                <Route path="/counter" element={<ReduxCounterPage/>}/>
-                <Route path="/redux_counter" element={<CreateStore/>}/>
+                <Route path="/counter" element={<BaseCounterPage/>}/>
+                <Route path="/redux_counter" element={<ReduxCounterPage/>}/>
             </Routes>
         </>
     )
