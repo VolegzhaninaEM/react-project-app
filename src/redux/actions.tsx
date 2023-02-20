@@ -18,6 +18,16 @@ export function reset() {
     }
 }
 
+export function asyncIncrement(newTheme: string) {
+    return function (dispatch: any) {
+        setTimeout(() => {
+            dispatch({
+                type: INCREMENT
+            })
+        }, 1500)
+    }
+}
+
 export function changeTheme(newTheme: string) {
     return {
         type: CHANGE_THEME,

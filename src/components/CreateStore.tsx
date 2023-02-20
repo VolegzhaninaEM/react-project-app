@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {decrement, increment, reset, changeTheme} from "../redux/actions";
+import {decrement, increment, reset, asyncIncrement, changeTheme} from "../redux/actions";
 
 const btnClasses: string = 'absolute top-50 right-5 py-1 px-2 border rounded bg-blue-500'
 
 class CreateStore extends Component<any, any>{
-    constructor(props) {
+    constructor(props: any) {
         super(props);
 
         this.state = {
@@ -13,7 +13,7 @@ class CreateStore extends Component<any, any>{
         }
     }
     protected _bgClasses: string = 'bg-white';
-    protected _increase = event => {
+    protected _increase = (event: any) => {
         event.preventDefault();
         this.props.increment();
         this.setState({
@@ -21,7 +21,7 @@ class CreateStore extends Component<any, any>{
         })
     }
 
-    protected _decrease = event => {
+    protected _decrease = (event: any) => {
         event.preventDefault();
         if (this.props.counter > 0) {
             this.props.decrement();
@@ -31,20 +31,17 @@ class CreateStore extends Component<any, any>{
         }
     }
 
-    protected _reset = event => {
+    protected _reset = (event: any) => {
         event.preventDefault();
         this.props.reset();
     }
 
-    protected _timeoutReset() {
-        return function (dispatch: any) {
-            setTimeout(() => {
-                console.log('hi!')
-            }, 1500)
-        }
+    protected _timeoutReset = (event: any) => {
+        event.preventDefault();
+        this.props.asyncIncrement();
     }
 
-    protected _toggleTheme = event => {
+    protected _toggleTheme = (event: any) => {
         event.preventDefault();
         const newTheme = this.props.theme === 'bg-white' ? 'bg-black/50' : 'bg-white'
         this.props.changeTheme(newTheme);
@@ -76,10 +73,11 @@ const mapDispatchToProps = {
     increment,
     decrement,
     reset,
+    asyncIncrement,
     changeTheme
 }
 
-const mapStateToProps = state => (
+const mapStateToProps = (state: any) => (
     {
         counter: state.counter,
         theme: state.theme.value
