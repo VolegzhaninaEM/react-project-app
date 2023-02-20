@@ -1,7 +1,12 @@
 import {DECREMENT, INCREMENT, RESET, CHANGE_THEME} from "./types";
 import {combineReducers} from "redux";
 
-export function CounterReducer(state: number = 0, action: any) {
+interface IAction {
+    type: string
+    payload: string
+}
+
+export function CounterReducer(state: number = 0, action: IAction) {
     switch (action.type) {
         case INCREMENT:
             return state + 1;
@@ -18,7 +23,7 @@ const initialThemeState: object = {
     value: 'bg-white'
 }
 
-export function ThemeReducer(state: object = initialThemeState, action: any) {
+export function ThemeReducer(state: object = initialThemeState, action: IAction) {
     switch (action.type) {
         case 'CHANGE_THEME':
             return {...state, value: action.payload}

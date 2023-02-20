@@ -18,8 +18,8 @@ export function reset() {
     }
 }
 
-export function asyncIncrement(newTheme: string) {
-    return function (dispatch: any) {
+export function asyncIncrement() {
+    return function (dispatch: Function) {
         setTimeout(() => {
             dispatch({
                 type: INCREMENT

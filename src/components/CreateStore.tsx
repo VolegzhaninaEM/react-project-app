@@ -1,11 +1,30 @@
-import React, {Component} from 'react';
+import React, {Component, SyntheticEvent} from 'react';
 import {connect} from 'react-redux';
 import {decrement, increment, reset, asyncIncrement, changeTheme} from "../redux/actions";
 
 const btnClasses: string = 'absolute top-50 right-5 py-1 px-2 border rounded bg-blue-500'
 
-class CreateStore extends Component<any, any>{
-    constructor(props: any) {
+interface IProps{
+    increment: Function,
+    decrement: Function,
+    counter: number,
+    reset: Function,
+    asyncIncrement: Function,
+    changeTheme: Function,
+    theme: string
+}
+
+interface IState {
+    counter: number,
+    reset: Function,
+    theme: {
+        value: string
+    }
+}
+
+
+class CreateStore extends Component<IProps, object>{
+    constructor(props: IProps) {
         super(props);
 
         this.state = {
@@ -13,7 +32,7 @@ class CreateStore extends Component<any, any>{
         }
     }
     protected _bgClasses: string = 'bg-white';
-    protected _increase = (event: any) => {
+    protected _increase = (event: SyntheticEvent) => {
         event.preventDefault();
         this.props.increment();
         this.setState({
@@ -21,7 +40,7 @@ class CreateStore extends Component<any, any>{
         })
     }
 
-    protected _decrease = (event: any) => {
+    protected _decrease = (event: SyntheticEvent) => {
         event.preventDefault();
         if (this.props.counter > 0) {
             this.props.decrement();
@@ -31,17 +50,17 @@ class CreateStore extends Component<any, any>{
         }
     }
 
-    protected _reset = (event: any) => {
+    protected _reset = (event: SyntheticEvent) => {
         event.preventDefault();
         this.props.reset();
     }
 
-    protected _timeoutReset = (event: any) => {
+    protected _timeoutReset = (event: SyntheticEvent) => {
         event.preventDefault();
         this.props.asyncIncrement();
     }
 
-    protected _toggleTheme = (event: any) => {
+    protected _toggleTheme = (event: SyntheticEvent) => {
         event.preventDefault();
         const newTheme = this.props.theme === 'bg-white' ? 'bg-black/50' : 'bg-white'
         this.props.changeTheme(newTheme);
@@ -77,7 +96,7 @@ const mapDispatchToProps = {
     changeTheme
 }
 
-const mapStateToProps = (state: any) => (
+const mapStateToProps = (state: IState) => (
     {
         counter: state.counter,
         theme: state.theme.value
